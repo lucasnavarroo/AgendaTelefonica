@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetalhesActivity">
+
+    <EditText
+        android:id="@+id/txtSalvarNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:hint="Nome"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/txtSalvarNumero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/txtSalvarNumero"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Número"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/txtSalvarEmail"
+        app:layout_constraintEnd_toEndOf="@+id/txtSalvarNome"
+        app:layout_constraintStart_toStartOf="@+id/txtSalvarNome"
+        app:layout_constraintTop_toBottomOf="@+id/txtSalvarNome" />
+
+    <EditText
+        android:id="@+id/txtSalvarEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
+        app:layout_constraintEnd_toEndOf="@+id/txtSalvarNumero"
+        app:layout_constraintStart_toStartOf="@+id/txtSalvarNumero"
+        app:layout_constraintTop_toBottomOf="@+id/txtSalvarNumero" />
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Salvar"
+        app:layout_constraintBottom_toTopOf="@+id/btnApagar"
+        app:layout_constraintEnd_toEndOf="@+id/txtSalvarEmail"
+        app:layout_constraintStart_toStartOf="@+id/txtSalvarEmail"
+        app:layout_constraintTop_toBottomOf="@+id/txtSalvarEmail" />
+
+    <Button
+        android:id="@+id/btnApagar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Apagar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnSalvar"
+        app:layout_constraintStart_toStartOf="@+id/btnSalvar"
+        app:layout_constraintTop_toBottomOf="@+id/btnSalvar" />
+
+</android.support.constraint.ConstraintLayout>
