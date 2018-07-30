@@ -18,10 +18,10 @@ object AgendaBusiness {
         }, {
             onError(R.string.erro_busca_usuario)
         })
-
     }
 
-    fun criarConta(usuario: Usuario, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+    fun criarUsuario(usuario: Usuario, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+
         AgendaNetwork.criarUsuario(usuario, {
             onSuccess()
         }, {

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">AgendaTelefonica</string>
     <string name="erro_busca_usuario">usuario nao encontrado</string>
+    <string name="msg_entrando">entrando...</string>
     <string name="erro_criar_conta">erro ao criar conta</string>
 </resources>

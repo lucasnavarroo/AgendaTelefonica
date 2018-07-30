@@ -1,10 +1,9 @@
 package br.com.miguel.agendatelefonica.network
 
-import br.com.miguel.agendatelefonica.module.Data
+import android.util.Log
 import br.com.miguel.agendatelefonica.module.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,6 +32,7 @@ object AgendaNetwork {
                     val user = responseUser.body()
 
                     user?.let {
+
                         it.accessToken = responseUser.headers()["access-token"]
                         it.uid = responseUser.headers()["uid"]
                         it.client = responseUser.headers()["client"]
@@ -41,12 +41,14 @@ object AgendaNetwork {
 
                 }, {
                     onError()
+                    Log.d("erroLogin", it.message.toString())
                 })
 
     }
 
     fun criarUsuario(usuario: Usuario, onSucess: () -> Unit, onError: () -> Unit) {
-        agendaAPI.criarConta(usuario)
+
+        agendaAPI.criarUsuario(usuario)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -57,6 +59,7 @@ object AgendaNetwork {
     }
 
     fun sair(usuario: Usuario, onSuccess: () -> Unit, onError: () -> Unit) {
+
         var uid: String = ""
         var accessToken: String = ""
         var client: String = ""
@@ -80,5 +83,4 @@ object AgendaNetwork {
                     onError()
                 })
     }
-
 }
