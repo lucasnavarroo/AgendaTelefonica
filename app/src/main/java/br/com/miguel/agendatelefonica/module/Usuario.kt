@@ -1,15 +1,24 @@
 package br.com.miguel.agendatelefonica.module
 
+import com.google.gson.annotations.SerializedName
 import io.realm.RealmObject
 
 open class Usuario: RealmObject() {
 
     var id: String? = ""
+
+    @SerializedName("email")
     var email: String? = ""
-    var senha: String? = ""
-    var provider: String? = ""
-    var uid: String? = ""
-    var allow_password_change: Boolean = false
+
+    @SerializedName("password")
+    var password: String? = ""
+
+    @SerializedName("password_confirmation")
+    var password_confirmation: String? = ""
+
+    var provider: String? = null
+    var uid: String? = null
+    var allow_password_change: Boolean? = false
     var name: String? = ""
     var nickname: String? = ""
     var image: Int? = 0

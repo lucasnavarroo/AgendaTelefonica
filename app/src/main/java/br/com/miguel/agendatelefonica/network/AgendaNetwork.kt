@@ -1,6 +1,7 @@
 package br.com.miguel.agendatelefonica.network
 
 import android.util.Log
+import br.com.miguel.agendatelefonica.module.Contato
 import br.com.miguel.agendatelefonica.module.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,6 +16,7 @@ object AgendaNetwork {
     }
 
     private fun getRetrofit(): Retrofit {
+
         return Retrofit.Builder()
                 .baseUrl("https://api-agenda-unifor.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -22,7 +24,7 @@ object AgendaNetwork {
                 .build()
     }
 
-    fun entrar(usuario: Usuario, onSucess: (user: Usuario) -> Unit, onError: () -> Unit) {
+    fun entrar(usuario: Usuario, onSucess: (usuario: Usuario) -> Unit, onError: () -> Unit) {
 
         agendaAPI.entrar(usuario)
                 .subscribeOn(Schedulers.io())
@@ -36,6 +38,7 @@ object AgendaNetwork {
                         it.accessToken = responseUser.headers()["access-token"]
                         it.uid = responseUser.headers()["uid"]
                         it.client = responseUser.headers()["client"]
+                        it.id = user.id
                         onSucess(it)
                     }
 
@@ -43,7 +46,6 @@ object AgendaNetwork {
                     onError()
                     Log.d("erroLogin", it.message.toString())
                 })
-
     }
 
     fun criarUsuario(usuario: Usuario, onSucess: () -> Unit, onError: () -> Unit) {
@@ -51,10 +53,14 @@ object AgendaNetwork {
         agendaAPI.criarUsuario(usuario)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+                .subscribe({ data ->
+
+                    val usuario =  data
+
                     onSucess()
                 }, {
                     onError()
+                    Log.d("erroCriarConta", it.message.toString())
                 })
     }
 
@@ -82,5 +88,9 @@ object AgendaNetwork {
                 }, {
                     onError()
                 })
+    }
+
+    fun criarContato(contato: Contato, onSuccess: () -> Unit, onError: () -> Unit) {
+
     }
 }

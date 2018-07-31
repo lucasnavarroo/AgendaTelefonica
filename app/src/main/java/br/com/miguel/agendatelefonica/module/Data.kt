@@ -4,6 +4,6 @@ import java.io.Serializable
 
 class Data : Serializable {
 
-    var usuario: Usuario? = null
-
+    var status: String? = null
+    var data: Usuario? = null
 }

@@ -3,4 +3,7 @@
     <string name="erro_busca_usuario">usuario nao encontrado</string>
     <string name="msg_entrando">entrando...</string>
     <string name="erro_criar_conta">erro ao criar conta</string>
+    <string name="logout_error">Erro ao sair</string>
+    <string name="conta_criada">Conta criada</string>
+
 </resources>
