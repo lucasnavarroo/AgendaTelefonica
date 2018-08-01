@@ -22,5 +22,5 @@ interface AgendaAPI {
     fun sair(@Header("uid") uid: String, @Header("client") client: String, @Header("accessToken") accessToken: String): Observable<Data>
 
     @POST("/contacts")
-    fun criarContato(@Header("uid") uid: String, @Header("client") client: String, @Header("acecessToken") accessToken: String): Observable<Contato>
+    fun criarContato(@Body contato: Contato, @Header("uid") uid: String?, @Header("client") client: String?, @Header("acecessToken") accessToken: String?): Observable<Contato>
 }

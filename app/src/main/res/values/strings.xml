@@ -5,5 +5,6 @@
     <string name="erro_criar_conta">erro ao criar conta</string>
     <string name="logout_error">Erro ao sair</string>
     <string name="conta_criada">Conta criada</string>
+    <string name="erro_criar_contato">erro ao criar contato</string>
 
 </resources>

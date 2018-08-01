@@ -2,6 +2,7 @@ package br.com.miguel.agendatelefonica.business
 
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
+import br.com.miguel.agendatelefonica.module.Contato
 import br.com.miguel.agendatelefonica.module.Usuario
 import br.com.miguel.agendatelefonica.network.AgendaNetwork
 
@@ -42,16 +43,15 @@ object AgendaBusiness {
         })
     }
 
-//    fun criarContato(contato: Contato, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
-//        AgendaNetwork.criarContato(contato, {
-//            contato.let {
-//                AgendaDatabase.salvarContato(it) {
-//                    onSuccess()
-//                }
-//            }
-//
-//        }, {
-//            onError
-//        })
-//    }
+    fun criarContato(usuario: Usuario, contato: Contato, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+        AgendaNetwork.criarContato(usuario, contato, {
+            contato.let {
+                AgendaDatabase.salvarContato(it) {
+                    onSuccess()
+                }
+            }
+        }, {
+            onError(R.string.erro_criar_contato)
+        })
+    }
 }
