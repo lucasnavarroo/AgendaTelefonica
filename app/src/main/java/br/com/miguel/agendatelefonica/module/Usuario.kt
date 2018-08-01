@@ -5,6 +5,7 @@ import io.realm.RealmObject
 
 open class Usuario: RealmObject() {
 
+    @SerializedName("id")
     var id: String? = ""
 
     @SerializedName("email")

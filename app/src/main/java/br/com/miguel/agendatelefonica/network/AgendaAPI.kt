@@ -13,7 +13,7 @@ import retrofit2.http.Header
 interface AgendaAPI {
 
     @POST("auth/sign_in")
-    fun entrar(@Body usuario: Usuario): Observable<Response<Usuario>>
+    fun entrar(@Body usuario: Usuario): Observable<Response<Data>>
 
     @POST("/auth")
     fun criarUsuario(@Body usuario: Usuario): Observable<Data>

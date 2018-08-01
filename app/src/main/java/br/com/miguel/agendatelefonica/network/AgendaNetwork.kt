@@ -29,35 +29,33 @@ object AgendaNetwork {
         agendaAPI.entrar(usuario)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ responseUser ->
+                .subscribe({ response ->
 
-                    val user = responseUser.body()
+                    val user = response.body()?.data
 
                     user?.let {
 
-                        it.accessToken = responseUser.headers()["access-token"]
-                        it.uid = responseUser.headers()["uid"]
-                        it.client = responseUser.headers()["client"]
-                        it.id = user.id
+                        it.accessToken = response.headers()["access-token"]
+                        it.uid = response.headers()["uid"]
+                        it.client = response.headers()["client"]
                         onSucess(it)
                     }
-
                 }, {
                     onError()
                     Log.d("erroLogin", it.message.toString())
                 })
     }
 
-    fun criarUsuario(usuario: Usuario, onSucess: () -> Unit, onError: () -> Unit) {
+    fun criarUsuario(usuario: Usuario, onSucess: (usuario: Usuario) -> Unit, onError: () -> Unit) {
 
         agendaAPI.criarUsuario(usuario)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ data ->
+                .subscribe({ response ->
 
-                    val usuario =  data
+                    val usuario = response.data
 
-                    onSucess()
+                    usuario?.let { onSucess(it) }
                 }, {
                     onError()
                     Log.d("erroCriarConta", it.message.toString())
