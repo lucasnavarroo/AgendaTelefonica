@@ -8,7 +8,6 @@ import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
 import kotlinx.android.synthetic.main.activity_add_contato.*
-import java.util.*
 
 class AddContatoActivity : AppCompatActivity() {
 
@@ -31,6 +30,7 @@ class AddContatoActivity : AppCompatActivity() {
 
                 AgendaBusiness.criarContato(usuario, contato, {
                     Toast.makeText(this, "contato salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                    finish()
                 }, {
                     Toast.makeText(this, R.string.erro_criar_contato, Toast.LENGTH_SHORT).show()
                 })

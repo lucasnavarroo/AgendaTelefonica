@@ -2,10 +2,12 @@ package br.com.miguel.agendatelefonica.module
 
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import java.io.Serializable
 
 open class Usuario : RealmObject(), Serializable {
 
+    @PrimaryKey
     @SerializedName("id")
     var id: String? = ""
 

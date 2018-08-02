@@ -1,5 +1,6 @@
 package br.com.miguel.agendatelefonica.business
 
+import android.util.Log
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
@@ -52,6 +53,29 @@ object AgendaBusiness {
             }
         }, {
             onError(R.string.erro_criar_contato)
+            Log.d("erroCriarContato", it)
+        })
+    }
+
+    fun listarContatos(usuario: Usuario, onSuccess: (contatos: List<Contato>) -> Unit, onError: (msg: String) -> Unit) {
+        AgendaNetwork.listarContatos(usuario, { contatos ->
+            AgendaDatabase.salvarContatos(
+                    contatos
+            ) {
+                onSuccess(contatos)
+            }
+        }, {
+            onError("erro ao listar contatos")
+            Log.d("erroListarContatos", it)
+        })
+    }
+
+    fun apagarContato(usuario: Usuario, id: Int, onSuccess: () -> Unit, onError: (msg: String) -> Unit) {
+        AgendaNetwork.apagarContato(usuario, id, {
+            AgendaDatabase.apagarContato(id)
+            onSuccess()
+        }, {
+            onError("erro ao apagar contato")
         })
     }
 }

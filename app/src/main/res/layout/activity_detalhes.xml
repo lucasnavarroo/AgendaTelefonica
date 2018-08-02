@@ -6,67 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".view.DetalhesActivity">
 
-    <EditText
-        android:id="@+id/txtSalvarNome"
+    <TextView
+        android:id="@+id/txtDetalheNome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:ems="10"
-        android:hint="Nome"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txtSalvarNumero"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Nome"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetalheEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgDetalheContato" />
+
+    <TextView
+        android:id="@+id/txtDetalheEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Email"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetalheNumero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalheNome" />
+
+    <TextView
+        android:id="@+id/txtDetalheNumero"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Numero"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetalheBirth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalheEmail" />
+
+    <TextView
+        android:id="@+id/txtDetalheBirth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Aniversario"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalheNumero" />
+
+    <ImageView
+        android:id="@+id/imgDetalheContato"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtDetalheNome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <EditText
-        android:id="@+id/txtSalvarNumero"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Número"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/txtSalvarEmail"
-        app:layout_constraintEnd_toEndOf="@+id/txtSalvarNome"
-        app:layout_constraintStart_toStartOf="@+id/txtSalvarNome"
-        app:layout_constraintTop_toBottomOf="@+id/txtSalvarNome" />
-
-    <EditText
-        android:id="@+id/txtSalvarEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnSalvar"
-        app:layout_constraintEnd_toEndOf="@+id/txtSalvarNumero"
-        app:layout_constraintStart_toStartOf="@+id/txtSalvarNumero"
-        app:layout_constraintTop_toBottomOf="@+id/txtSalvarNumero" />
-
-    <Button
-        android:id="@+id/btnSalvar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Salvar"
-        app:layout_constraintBottom_toTopOf="@+id/btnApagar"
-        app:layout_constraintEnd_toEndOf="@+id/txtSalvarEmail"
-        app:layout_constraintStart_toStartOf="@+id/txtSalvarEmail"
-        app:layout_constraintTop_toBottomOf="@+id/txtSalvarEmail" />
-
-    <Button
-        android:id="@+id/btnApagar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Apagar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnSalvar"
-        app:layout_constraintStart_toStartOf="@+id/btnSalvar"
-        app:layout_constraintTop_toBottomOf="@+id/btnSalvar" />
-
+        app:layout_constraintVertical_bias="0.04000002"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@mipmap/ic_launcher" />
 </android.support.constraint.ConstraintLayout>

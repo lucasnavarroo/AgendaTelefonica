@@ -3,12 +3,9 @@ package br.com.miguel.agendatelefonica.network
 import br.com.miguel.agendatelefonica.module.Contato
 import br.com.miguel.agendatelefonica.module.Data
 import br.com.miguel.agendatelefonica.module.Usuario
-import retrofit2.http.Body
-import retrofit2.http.POST
 import io.reactivex.Observable
 import retrofit2.Response
-import retrofit2.http.DELETE
-import retrofit2.http.Header
+import retrofit2.http.*
 
 interface AgendaAPI {
 
@@ -24,9 +21,20 @@ interface AgendaAPI {
              @Header("accessToken") accessToken: String): Observable<Data>
 
     @POST("/contacts")
-    fun criarContato(@Header("Content-Type") contentType: String?,
-                     @Header("uid") uid: String?,
+    fun criarContato(@Header("uid") uid: String?,
                      @Header("client") client: String?,
-                     @Header("accessToken") accessToken: String?,
+                     @Header("access-token") accessToken: String?,
                      @Body contato: Contato): Observable<Contato>
+
+    @GET("/contacts")
+    fun listarContatos(@Header("uid") uid: String?,
+                       @Header("client") client: String?,
+                       @Header("access-token") accessToken: String?): Observable<List<Contato>>
+
+    @DELETE("/contacts/{id}")
+    fun apagarContato(@Header("uid") uid: String?,
+                      @Header("client") client: String?,
+                      @Header("access-token") accessToken: String?,
+                      @Path("id") id: Int?): Observable<Response<Void>>
+
 }

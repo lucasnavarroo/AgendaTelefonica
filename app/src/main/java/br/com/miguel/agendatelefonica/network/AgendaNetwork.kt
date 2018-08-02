@@ -62,9 +62,9 @@ object AgendaNetwork {
                 })
     }
 
-    fun criarContato(usuario: Usuario, contato: Contato, onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
+    fun criarContato(usuario: Usuario, contato: Contato, onSuccess: (contato: Contato) -> Unit, onError: (msg: String) -> Unit) {
 
-        agendaAPI.criarContato("application/json",usuario.uid, usuario.client, usuario.accessToken, contato)
+        agendaAPI.criarContato(usuario.uid, usuario.client, usuario.accessToken, contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ contato ->
@@ -73,7 +73,37 @@ object AgendaNetwork {
                         onSuccess(it)
                     }
                 }, {
-                    onError()
+                    val msg: String = it.message.toString()
+                    onError(msg)
+                })
+    }
+
+    fun listarContatos(usuario: Usuario, onSuccess: (contatos: List<Contato>) -> Unit, onError: (msg: String) -> Unit) {
+
+        agendaAPI.listarContatos(usuario.uid, usuario.client, usuario.accessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ contatos ->
+
+                    contatos?.let {
+                        onSuccess(it)
+                    }
+                }, {
+                    val msg: String = it.message.toString()
+                    onError(msg)
+                })
+    }
+
+    fun apagarContato(usuario: Usuario, id: Int, onSuccess: (id: Int) -> Unit, onError: (msg: String) -> Unit) {
+
+        agendaAPI.apagarContato(usuario.uid, usuario.client, usuario.accessToken, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    onSuccess(id)
+                }, {
+                    val msg: String = it.message.toString()
+                    onError(msg)
                 })
     }
 
