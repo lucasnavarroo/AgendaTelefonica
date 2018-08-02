@@ -16,9 +16,9 @@ class AddContatoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contato)
 
+        val id: String = intent.extras.getString("ID")
 
-
-//        onAddClick()
+        onAddClick(id)
     }
 
     private fun onAddClick(id: String) {
@@ -30,11 +30,9 @@ class AddContatoActivity : AppCompatActivity() {
             usuario?.let { usuario ->
 
                 AgendaBusiness.criarContato(usuario, contato, {
-                    AgendaDatabase.salvarContato(contato) {
-                        Toast.makeText(this, "contato salvo com sucesso!",Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this, "contato salvo com sucesso!", Toast.LENGTH_SHORT).show()
                 }, {
-                    R.string.erro_criar_contato
+                    Toast.makeText(this, R.string.erro_criar_contato, Toast.LENGTH_SHORT).show()
                 })
             }
         }
@@ -44,7 +42,7 @@ class AddContatoActivity : AppCompatActivity() {
         val contato = Contato()
 
         contato.name = addNomeContato.text.toString()
-        contato.birth = Date(addNiverContato.text.toString())
+        contato.birth = addNiverContato.text.toString().toInt()
         contato.email = addEmailContato.text.toString()
         contato.phone = addNumeroContato.text.toString()
         contato.picture = addUrlImagemContato.text.toString()

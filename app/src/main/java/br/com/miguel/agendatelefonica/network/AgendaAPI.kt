@@ -19,8 +19,14 @@ interface AgendaAPI {
     fun criarUsuario(@Body usuario: Usuario): Observable<Data>
 
     @DELETE("auth/sign_out")
-    fun sair(@Header("uid") uid: String, @Header("client") client: String, @Header("accessToken") accessToken: String): Observable<Data>
+    fun sair(@Header("uid") uid: String,
+             @Header("client") client: String,
+             @Header("accessToken") accessToken: String): Observable<Data>
 
     @POST("/contacts")
-    fun criarContato(@Body contato: Contato, @Header("uid") uid: String?, @Header("client") client: String?, @Header("acecessToken") accessToken: String?): Observable<Contato>
+    fun criarContato(@Header("Content-Type") contentType: String?,
+                     @Header("uid") uid: String?,
+                     @Header("client") client: String?,
+                     @Header("accessToken") accessToken: String?,
+                     @Body contato: Contato): Observable<Contato>
 }

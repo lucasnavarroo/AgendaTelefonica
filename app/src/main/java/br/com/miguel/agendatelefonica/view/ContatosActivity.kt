@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import br.com.miguel.agendatelefonica.R
+import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import kotlinx.android.synthetic.main.activity_contatos.*
 
 class ContatosActivity : AppCompatActivity() {
@@ -23,5 +24,10 @@ class ContatosActivity : AppCompatActivity() {
             intent.putExtra("ID", id)
             startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AgendaDatabase.limparBanco()
     }
 }

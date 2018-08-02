@@ -6,7 +6,7 @@ import java.util.*
 open class Contato : RealmObject() {
 
     var name: String? = ""
-    var birth: Date? = null
+    var birth: Int? = 0
     var email: String? = ""
     var phone: String? = ""
     var picture: String? = ""

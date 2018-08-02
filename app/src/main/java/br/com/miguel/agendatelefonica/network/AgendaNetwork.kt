@@ -64,13 +64,12 @@ object AgendaNetwork {
 
     fun criarContato(usuario: Usuario, contato: Contato, onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
 
-        agendaAPI.criarContato(contato, usuario.uid, usuario.client, usuario.accessToken)
+        agendaAPI.criarContato("application/json",usuario.uid, usuario.client, usuario.accessToken, contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ contato ->
 
                     contato?.let {
-
                         onSuccess(it)
                     }
                 }, {
