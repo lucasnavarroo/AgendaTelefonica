@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
                 val id = it.id
 
-                intent.putExtra("ID", id)
+                intent.putExtra("IdUsuario", id)
 
                 startActivity(intent)
 

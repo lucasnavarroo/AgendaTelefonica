@@ -37,4 +37,9 @@ interface AgendaAPI {
                       @Header("access-token") accessToken: String?,
                       @Path("id") id: Int?): Observable<Response<Void>>
 
+    @PUT("/contacts/{id}")
+    fun editarContato(@Header("uid") uid: String?,
+                      @Header("client") client: String?,
+                      @Header("access-token") accessToken: String?,
+                      @Path("id") id: String?): Observable<Contato>
 }

@@ -9,7 +9,7 @@ open class Usuario : RealmObject(), Serializable {
 
     @PrimaryKey
     @SerializedName("id")
-    var id: String? = ""
+    var id: Int? = 0
 
     @SerializedName("email")
     var email: String? = ""

@@ -18,12 +18,17 @@ class ContatosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contatos)
 
-        val id: String = intent.extras.getString("ID")
-        val usuario = AgendaDatabase.getUsuario(id)
-
-        listarContatos(usuario)
+        val id: Int = intent.extras.getInt("IdUsuario")
+        val usuario = AgendaDatabase.getUsuario(id.toInt())
 
         onAddClick(id)
+
+        listarContatos(usuario)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AgendaDatabase.limparBanco()
     }
 
     private fun listarContatos(usuario: Usuario?) {
@@ -32,23 +37,17 @@ class ContatosActivity : AppCompatActivity() {
 
                 lista_contatos.layoutManager = LinearLayoutManager(this)
                 lista_contatos.adapter = ContatosAdapter(listaContatos, this, usuario)
-
             }, {
                 Toast.makeText(this, "erro ao listar contatos", Toast.LENGTH_SHORT).show()
             })
         }
     }
 
-    private fun onAddClick(id: String) {
+    private fun onAddClick(id: Int) {
         btnNovoContato.setOnClickListener {
             val intent = Intent(this, AddContatoActivity::class.java)
-            intent.putExtra("ID", id)
+            intent.putExtra("IdUsuario", id)
             startActivity(intent)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        AgendaDatabase.limparBanco()
     }
 }

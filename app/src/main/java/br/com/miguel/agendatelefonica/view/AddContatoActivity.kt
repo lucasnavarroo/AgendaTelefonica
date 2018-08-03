@@ -15,15 +15,15 @@ class AddContatoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contato)
 
-        val id: String = intent.extras.getString("ID")
+        val id: Int = intent.extras.getInt("IdUsuario")
 
         onAddClick(id)
     }
 
-    private fun onAddClick(id: String) {
+    private fun onAddClick(id: Int) {
         btnNovoContato.setOnClickListener {
 
-            val usuario = AgendaDatabase.getUsuario(id)
+            val usuario = AgendaDatabase.getUsuario(id.toInt())
             val contato = getContato()
 
             usuario?.let { usuario ->

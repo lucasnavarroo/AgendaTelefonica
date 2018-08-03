@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".view.ContatosActivity" />
         <activity android:name=".view.DetalhesActivity" />
-        <activity android:name=".view.AddContatoActivity"></activity>
+        <activity android:name=".view.AddContatoActivity" />
+        <activity android:name=".view.EditarContatoActivity"></activity>
     </application>
 
 </manifest>

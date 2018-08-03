@@ -107,6 +107,18 @@ object AgendaNetwork {
                 })
     }
 
+    fun editarContato(usuario: Usuario, id: Int, onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
+
+        agendaAPI.editarContato(usuario.uid, usuario.client, usuario.accessToken, id.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    onSuccess(it)
+                }, {
+                    onError()
+                })
+    }
+
     fun sair(usuario: Usuario, onSuccess: () -> Unit, onError: () -> Unit) {
 
         var uid: String = ""

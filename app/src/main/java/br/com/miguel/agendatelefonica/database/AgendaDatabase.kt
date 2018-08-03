@@ -55,6 +55,8 @@ object AgendaDatabase {
 
     fun salvarContatos(contatos: List<Contato>, onSuccess: () -> Unit) {
 
+        limparContatos()
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealm(contatos)
@@ -63,7 +65,7 @@ object AgendaDatabase {
         }
     }
 
-    fun getUsuario(id: String): Usuario? {
+    fun getUsuario(id: Int): Usuario? {
 
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
@@ -82,6 +84,16 @@ object AgendaDatabase {
             realm.commitTransaction()
 
             return realm.copyFromRealm(contato)
+        }
+    }
+
+    fun editarContato(novoContato: Contato, onSuccess: () -> Unit) {
+
+        Realm.getDefaultInstance().use { realm ->
+            realm.beginTransaction()
+            realm.copyToRealmOrUpdate(novoContato)
+            realm.commitTransaction()
+            onSuccess()
         }
     }
 }

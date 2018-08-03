@@ -59,9 +59,7 @@ object AgendaBusiness {
 
     fun listarContatos(usuario: Usuario, onSuccess: (contatos: List<Contato>) -> Unit, onError: (msg: String) -> Unit) {
         AgendaNetwork.listarContatos(usuario, { contatos ->
-            AgendaDatabase.salvarContatos(
-                    contatos
-            ) {
+            AgendaDatabase.salvarContatos(contatos) {
                 onSuccess(contatos)
             }
         }, {
@@ -76,6 +74,17 @@ object AgendaBusiness {
             onSuccess()
         }, {
             onError("erro ao apagar contato")
+        })
+    }
+
+    fun editarContato(usuario: Usuario, id: Int, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+
+        AgendaNetwork.editarContato(usuario, id, { contato ->
+            AgendaDatabase.editarContato(contato) {
+                onSuccess()
+            }
+        }, {
+            onError(R.string.erro_editar_contato)
         })
     }
 }

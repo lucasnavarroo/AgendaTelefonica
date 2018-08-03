@@ -2,7 +2,6 @@ package br.com.miguel.agendatelefonica.view.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,12 +11,15 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
+import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
 import br.com.miguel.agendatelefonica.module.Usuario
+import br.com.miguel.agendatelefonica.view.AddContatoActivity
 import br.com.miguel.agendatelefonica.view.DetalhesActivity
+import br.com.miguel.agendatelefonica.view.EditarContatoActivity
 import kotlinx.android.synthetic.main.contato_item.view.*
 
-class ContatosAdapter(val contatos: List<Contato>, val context: Context, val usuario: Usuario) : RecyclerView.Adapter<ContatosAdapter.ViewHolder>() {
+class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usuario: Usuario) : RecyclerView.Adapter<ContatosAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.contato_item, parent, false))
@@ -49,6 +51,7 @@ class ContatosAdapter(val contatos: List<Contato>, val context: Context, val usu
 
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
+
                     R.id.apagarContato -> {
                         if (id != null) {
                             AgendaBusiness.apagarContato(usuario, id, {
@@ -58,6 +61,16 @@ class ContatosAdapter(val contatos: List<Contato>, val context: Context, val usu
                                 Toast.makeText(context, "erro ao apagar contato", Toast.LENGTH_SHORT).show()
                                 Log.d("erroApagaContato", it)
                             })
+                        }
+                        true
+                    }
+
+                    R.id.editarContato -> {
+                        if (id != null) {
+                            val intent = Intent(context, EditarContatoActivity::class.java)
+                            intent.putExtra("ID", id)
+                            intent.putExtra("IdUsuario", usuario.id)
+                            context.startActivity(intent)
                         }
                         true
                     }
