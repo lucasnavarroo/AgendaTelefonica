@@ -2,6 +2,7 @@ package br.com.miguel.agendatelefonica.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import kotlinx.android.synthetic.main.activity_detalhes.*
@@ -11,6 +12,8 @@ class DetalhesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes)
+
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         val id: Int = intent.extras.getInt("ID")
 
@@ -22,5 +25,16 @@ class DetalhesActivity : AppCompatActivity() {
             txtDetalheNumero.text = contato.phone
             txtDetalheBirth.text = contato.birth.toString()
         }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

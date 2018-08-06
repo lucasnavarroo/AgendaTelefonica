@@ -7,6 +7,7 @@
     <string name="conta_criada">Conta criada</string>
     <string name="erro_criar_contato">erro ao criar contato</string>
     <string name="erro_editar_contato">erro ao editar contato</string>
-    <string name="title_activity_detalhes2">Detalhes2Activity</string>
+    <string name="erro_apagar_contato">erro ao apagar contato</string>
+    <string name="erro_listar_contatos">erro ao listar contatos</string>
 
 </resources>

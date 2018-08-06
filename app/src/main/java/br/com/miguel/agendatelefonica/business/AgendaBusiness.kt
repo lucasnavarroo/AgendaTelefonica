@@ -10,7 +10,7 @@ import br.com.miguel.agendatelefonica.network.AgendaNetwork
 object AgendaBusiness {
 
     fun entrar(usuario: Usuario, onSuccess: (usuario: Usuario) -> Unit, onError: (message: Int) -> Unit) {
-
+        AgendaDatabase.limparBanco()
         AgendaNetwork.entrar(usuario, { usuario: Usuario ->
             usuario.let {
                 AgendaDatabase.salvarUsuario(it) {
@@ -57,10 +57,11 @@ object AgendaBusiness {
         })
     }
 
-    fun listarContatos(usuario: Usuario, onSuccess: (contatos: List<Contato>) -> Unit, onError: (msg: String) -> Unit) {
+    fun listarContatos(usuario: Usuario, onSuccess: () -> Unit, onError: (msg: String) -> Unit) {
+        AgendaDatabase.apagarContatos()
         AgendaNetwork.listarContatos(usuario, { contatos ->
             AgendaDatabase.salvarContatos(contatos) {
-                onSuccess(contatos)
+                onSuccess()
             }
         }, {
             onError("erro ao listar contatos")
@@ -77,9 +78,9 @@ object AgendaBusiness {
         })
     }
 
-    fun editarContato(usuario: Usuario, id: Int, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+    fun editarContato(usuario: Usuario, id: Int, contato: Contato, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
 
-        AgendaNetwork.editarContato(usuario, id, { contato ->
+        AgendaNetwork.editarContato(usuario, contato, id, { contato ->
             AgendaDatabase.editarContato(contato) {
                 onSuccess()
             }

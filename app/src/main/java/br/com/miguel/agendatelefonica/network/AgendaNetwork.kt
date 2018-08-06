@@ -107,9 +107,9 @@ object AgendaNetwork {
                 })
     }
 
-    fun editarContato(usuario: Usuario, id: Int, onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
+    fun editarContato(usuario: Usuario, contato: Contato, id: Int,onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
 
-        agendaAPI.editarContato(usuario.uid, usuario.client, usuario.accessToken, id.toString())
+        agendaAPI.editarContato(usuario.uid, usuario.client, usuario.accessToken, contato, id.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

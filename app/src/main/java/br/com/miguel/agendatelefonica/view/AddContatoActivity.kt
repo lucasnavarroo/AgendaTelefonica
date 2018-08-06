@@ -2,6 +2,7 @@ package br.com.miguel.agendatelefonica.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
@@ -15,6 +16,8 @@ class AddContatoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contato)
 
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+
         val id: Int = intent.extras.getInt("IdUsuario")
 
         onAddClick(id)
@@ -23,7 +26,7 @@ class AddContatoActivity : AppCompatActivity() {
     private fun onAddClick(id: Int) {
         btnNovoContato.setOnClickListener {
 
-            val usuario = AgendaDatabase.getUsuario(id.toInt())
+            val usuario = AgendaDatabase.getUsuario(id)
             val contato = getContato()
 
             usuario?.let { usuario ->
@@ -48,5 +51,15 @@ class AddContatoActivity : AppCompatActivity() {
         contato.picture = addUrlImagemContato.text.toString()
 
         return contato
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

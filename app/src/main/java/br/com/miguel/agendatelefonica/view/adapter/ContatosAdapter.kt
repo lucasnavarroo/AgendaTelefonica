@@ -14,7 +14,6 @@ import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
 import br.com.miguel.agendatelefonica.module.Usuario
-import br.com.miguel.agendatelefonica.view.AddContatoActivity
 import br.com.miguel.agendatelefonica.view.DetalhesActivity
 import br.com.miguel.agendatelefonica.view.EditarContatoActivity
 import kotlinx.android.synthetic.main.contato_item.view.*
@@ -38,24 +37,24 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
 
         val id = contatos.get(position).id
 
-        configClickDetalhesContato(holder, id)
+        onClick(holder, id)
 
-        configLongClickApagarContato(holder, id, position)
+        onLongClick(holder, id)
     }
 
-    private fun configLongClickApagarContato(holder: ViewHolder, id: Int?, position: Int) {
-        holder.itemView.setOnLongClickListener {
+    private fun onLongClick(holder: ViewHolder, id: Int?) {
+        holder.itemView.setOnLongClickListener { itemView ->
 
-            val popupMenu = PopupMenu(context, it)
+            val popupMenu = PopupMenu(context, itemView)
             popupMenu.inflate(R.menu.item_menu_contato)
 
-            popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
 
                     R.id.apagarContato -> {
                         if (id != null) {
                             AgendaBusiness.apagarContato(usuario, id, {
-                                notifyDataSetChanged()
+                                refreshContatos()
                                 Toast.makeText(context, "contato apagado com sucesso", Toast.LENGTH_SHORT).show()
                             }, {
                                 Toast.makeText(context, "erro ao apagar contato", Toast.LENGTH_SHORT).show()
@@ -82,7 +81,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
         }
     }
 
-    private fun configClickDetalhesContato(holder: ViewHolder, id: Int?) {
+    private fun onClick(holder: ViewHolder, id: Int?) {
         holder.itemView.setOnClickListener {
 
             val intent = Intent(context, DetalhesActivity::class.java)
@@ -90,6 +89,11 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
 
             context.startActivity(intent)
         }
+    }
+
+    fun refreshContatos() {
+        this.contatos = AgendaDatabase.getContatos()
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

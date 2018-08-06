@@ -1,9 +1,11 @@
 package br.com.miguel.agendatelefonica.view
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.widget.Toast
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
@@ -13,32 +15,33 @@ import br.com.miguel.agendatelefonica.view.adapter.ContatosAdapter
 import kotlinx.android.synthetic.main.activity_contatos.*
 
 class ContatosActivity : AppCompatActivity() {
+    private var usuario: Usuario? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contatos)
 
         val id: Int = intent.extras.getInt("IdUsuario")
-        val usuario = AgendaDatabase.getUsuario(id.toInt())
+        usuario = AgendaDatabase.getUsuario(id)
+
+        listarContatos(usuario)
 
         onAddClick(id)
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         listarContatos(usuario)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        AgendaDatabase.limparBanco()
-    }
-
     private fun listarContatos(usuario: Usuario?) {
-        usuario?.let { usuario ->
-            AgendaBusiness.listarContatos(usuario, { listaContatos ->
-
+        usuario?.let { usuarioResponse ->
+            AgendaBusiness.listarContatos(usuarioResponse, {
                 lista_contatos.layoutManager = LinearLayoutManager(this)
-                lista_contatos.adapter = ContatosAdapter(listaContatos, this, usuario)
+                lista_contatos.adapter = ContatosAdapter(AgendaDatabase.getContatos(), this, usuarioResponse)
             }, {
-                Toast.makeText(this, "erro ao listar contatos", Toast.LENGTH_SHORT).show()
+                Snackbar.make(lista_contatos, R.string.erro_listar_contatos, Snackbar.LENGTH_SHORT).show()
             })
         }
     }

@@ -25,7 +25,7 @@ object AgendaDatabase {
         }
     }
 
-    fun limparContatos() {
+    fun apagarContatos() {
 
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
@@ -55,7 +55,7 @@ object AgendaDatabase {
 
     fun salvarContatos(contatos: List<Contato>, onSuccess: () -> Unit) {
 
-        limparContatos()
+        apagarContatos()
 
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
@@ -94,6 +94,17 @@ object AgendaDatabase {
             realm.copyToRealmOrUpdate(novoContato)
             realm.commitTransaction()
             onSuccess()
+        }
+    }
+
+    fun getContatos(): List<Contato> {
+
+        Realm.getDefaultInstance().use { realm ->
+            realm.beginTransaction()
+            val contatos: List<Contato>? = realm.where(Contato::class.java).findAll()
+            realm.commitTransaction()
+
+            return realm.copyFromRealm(contatos)
         }
     }
 }

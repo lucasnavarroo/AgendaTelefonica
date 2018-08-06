@@ -31,7 +31,7 @@
         android:layout_marginStart="32dp"
         android:ems="10"
         android:hint="Aniversário"
-        android:inputType="textPersonName"
+        android:inputType="text|numberSigned"
         app:layout_constraintBottom_toTopOf="@+id/addEmailContato"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
