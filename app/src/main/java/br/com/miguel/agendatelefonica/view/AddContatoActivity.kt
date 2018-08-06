@@ -8,6 +8,7 @@ import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
+import br.com.miguel.agendatelefonica.view.LoginActivity.Companion.ID_USUARIO
 import kotlinx.android.synthetic.main.activity_add_contato.*
 
 class AddContatoActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class AddContatoActivity : AppCompatActivity() {
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-        val id: Int = intent.extras.getInt("IdUsuario")
+        val id: Int = intent.extras.getInt(ID_USUARIO)
 
         onAddClick(id)
     }

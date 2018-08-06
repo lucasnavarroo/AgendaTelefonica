@@ -38,6 +38,7 @@ class EditarContatoActivity : AppCompatActivity() {
     }
 
     fun onEditClick(id: Int, idUsuario: Int) {
+
         btnAlterarContato.setOnClickListener {
             val usuario = AgendaDatabase.getUsuario(idUsuario)
             val contato = Contato()

@@ -14,8 +14,11 @@ import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
 import br.com.miguel.agendatelefonica.module.Usuario
+import br.com.miguel.agendatelefonica.view.ContatosActivity.Companion.ID_CONTATO
 import br.com.miguel.agendatelefonica.view.DetalhesActivity
 import br.com.miguel.agendatelefonica.view.EditarContatoActivity
+import br.com.miguel.agendatelefonica.view.LoginActivity.Companion.ID_USUARIO
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.contato_item.view.*
 
 class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usuario: Usuario) : RecyclerView.Adapter<ContatosAdapter.ViewHolder>() {
@@ -30,12 +33,12 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.nome?.text = contatos.get(position).name
-        holder.numero?.text = contatos.get(position).phone
-        holder.email?.text = contatos.get(position).email
-        //holder.picture = contatos.get(position).picture
+        holder.nome?.text = contatos[position].name
+        holder.numero?.text = contatos[position].phone
+        holder.email?.text = contatos[position].email
+        Picasso.get().load(contatos[position].picture.toString()).placeholder(R.drawable.ic_person_black_24dp).fit().into(holder.picture)
 
-        val id = contatos.get(position).id
+        val id = contatos[position].id
 
         onClick(holder, id)
 
@@ -43,6 +46,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
     }
 
     private fun onLongClick(holder: ViewHolder, id: Int?) {
+
         holder.itemView.setOnLongClickListener { itemView ->
 
             val popupMenu = PopupMenu(context, itemView)
@@ -67,8 +71,8 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
                     R.id.editarContato -> {
                         if (id != null) {
                             val intent = Intent(context, EditarContatoActivity::class.java)
-                            intent.putExtra("ID_CONTATO", id)
-                            intent.putExtra("IdUsuario", usuario.id)
+                            intent.putExtra(ID_CONTATO, id)
+                            intent.putExtra(ID_USUARIO, usuario.id)
                             context.startActivity(intent)
                         }
                         true
@@ -82,6 +86,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
     }
 
     private fun onClick(holder: ViewHolder, id: Int?) {
+
         holder.itemView.setOnClickListener {
 
             val intent = Intent(context, DetalhesActivity::class.java)
@@ -92,6 +97,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
     }
 
     fun refreshContatos() {
+
         this.contatos = AgendaDatabase.getContatos()
         notifyDataSetChanged()
     }

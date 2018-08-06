@@ -15,7 +15,6 @@ import br.com.miguel.agendatelefonica.view.LoginActivity.Companion.ID_USUARIO
 import br.com.miguel.agendatelefonica.view.adapter.ContatosAdapter
 import kotlinx.android.synthetic.main.activity_contatos.*
 
-
 class ContatosActivity : AppCompatActivity() {
     private var usuario: Usuario? = null
 
@@ -87,4 +86,3 @@ class ContatosActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
-

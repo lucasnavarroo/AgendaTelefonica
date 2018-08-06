@@ -6,6 +6,7 @@ import android.view.MenuItem
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.view.ContatosActivity.Companion.ID_CONTATO
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes.*
 
 class DetalhesActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class DetalhesActivity : AppCompatActivity() {
             txtDetalheEmail.text = contato.email
             txtDetalheNumero.text = contato.phone
             txtDetalheBirth.text = contato.birth.toString()
+            Picasso.get().load(contato.picture.toString()).placeholder(R.drawable.ic_person_black_24dp).fit().into(imgDetalheContato)
         }
     }
 
