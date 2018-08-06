@@ -4,7 +4,6 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.util.Log
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.module.Usuario
@@ -12,6 +11,10 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+
+    companion object {
+        val ID_USUARIO: String? = "ID_USUARIO"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +35,6 @@ class LoginActivity : AppCompatActivity() {
             usuario.email = txtEmail.text.toString()
             usuario.password = txtSenha.text.toString()
 
-            Log.d("usuario", usuario.email + " ," + usuario.password)
-
             AgendaBusiness.entrar(usuario, {
                 Snackbar.make(btnEntrar, R.string.msg_entrando, Snackbar.LENGTH_SHORT).show()
 
@@ -41,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
                 val id = it.id
 
-                intent.putExtra("IdUsuario", id)
+                intent.putExtra(ID_USUARIO, id)
 
                 startActivity(intent)
 

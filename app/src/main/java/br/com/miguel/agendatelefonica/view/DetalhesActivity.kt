@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
+import br.com.miguel.agendatelefonica.view.ContatosActivity.Companion.ID_CONTATO
 import kotlinx.android.synthetic.main.activity_detalhes.*
 
 class DetalhesActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class DetalhesActivity : AppCompatActivity() {
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-        val id: Int = intent.extras.getInt("ID")
+        val id: Int = intent.extras.getInt(ID_CONTATO)
 
         val contato = AgendaDatabase.getContato(id)
 
@@ -25,7 +26,6 @@ class DetalhesActivity : AppCompatActivity() {
             txtDetalheNumero.text = contato.phone
             txtDetalheBirth.text = contato.birth.toString()
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

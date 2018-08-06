@@ -9,6 +9,8 @@ import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
 import br.com.miguel.agendatelefonica.module.Contato
+import br.com.miguel.agendatelefonica.view.ContatosActivity.Companion.ID_CONTATO
+import br.com.miguel.agendatelefonica.view.LoginActivity.Companion.ID_USUARIO
 import kotlinx.android.synthetic.main.activity_editar_contato.*
 
 class EditarContatoActivity : AppCompatActivity() {
@@ -19,8 +21,8 @@ class EditarContatoActivity : AppCompatActivity() {
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-        val id: Int = intent.extras.getInt("ID")
-        val idUsuario: Int = intent.extras.getInt("IdUsuario")
+        val id: Int = intent.extras.getInt(ID_CONTATO)
+        val idUsuario: Int = intent.extras.getInt(ID_USUARIO)
 
         val contato = AgendaDatabase.getContato(id)
 

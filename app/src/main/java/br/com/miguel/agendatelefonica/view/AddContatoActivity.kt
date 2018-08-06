@@ -2,8 +2,8 @@ package br.com.miguel.agendatelefonica.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.MenuItem
-import android.widget.Toast
 import br.com.miguel.agendatelefonica.R
 import br.com.miguel.agendatelefonica.business.AgendaBusiness
 import br.com.miguel.agendatelefonica.database.AgendaDatabase
@@ -32,10 +32,10 @@ class AddContatoActivity : AppCompatActivity() {
             usuario?.let { usuario ->
 
                 AgendaBusiness.criarContato(usuario, contato, {
-                    Toast.makeText(this, "contato salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(btnNovoContato, R.string.contato_salvo_com_sucesso, Snackbar.LENGTH_SHORT).show()
                     finish()
                 }, {
-                    Toast.makeText(this, R.string.erro_criar_contato, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(btnNovoContato, R.string.erro_criar_contato, Snackbar.LENGTH_SHORT).show()
                 })
             }
         }

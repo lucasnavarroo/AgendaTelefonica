@@ -33,7 +33,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
         holder.nome?.text = contatos.get(position).name
         holder.numero?.text = contatos.get(position).phone
         holder.email?.text = contatos.get(position).email
-//        holder?.contato? = contatos.get(position)
+        //holder.picture = contatos.get(position).picture
 
         val id = contatos.get(position).id
 
@@ -67,7 +67,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
                     R.id.editarContato -> {
                         if (id != null) {
                             val intent = Intent(context, EditarContatoActivity::class.java)
-                            intent.putExtra("ID", id)
+                            intent.putExtra("ID_CONTATO", id)
                             intent.putExtra("IdUsuario", usuario.id)
                             context.startActivity(intent)
                         }
@@ -85,7 +85,7 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
         holder.itemView.setOnClickListener {
 
             val intent = Intent(context, DetalhesActivity::class.java)
-            intent.putExtra("ID", id)
+            intent.putExtra("ID_CONTATO", id)
 
             context.startActivity(intent)
         }
@@ -101,6 +101,6 @@ class ContatosAdapter(var contatos: List<Contato>, val context: Context, val usu
         val nome = view.txtNome
         val numero = view.textNumero
         val email = view.textEmail
-        val contato = view.imageContato
+        val picture = view.imageContato
     }
 }

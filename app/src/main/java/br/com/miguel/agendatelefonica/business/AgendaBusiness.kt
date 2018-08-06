@@ -22,6 +22,15 @@ object AgendaBusiness {
         })
     }
 
+    fun sair(usuario: Usuario) {
+
+        AgendaNetwork.sair(usuario, {
+            AgendaDatabase.limparBanco()
+        }, {
+            Log.d("erroAoSair", R.string.logout_error.toString())
+        })
+    }
+
     fun criarUsuario(usuario: Usuario, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
 
         AgendaNetwork.criarUsuario(usuario, {
@@ -32,15 +41,6 @@ object AgendaBusiness {
             }
         }, {
             onError(R.string.erro_criar_conta)
-        })
-    }
-
-    fun sair(usuario: Usuario, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
-
-        AgendaNetwork.sair(usuario, {
-            AgendaDatabase.limparBanco()
-        }, {
-            onError(R.string.logout_error)
         })
     }
 
