@@ -1,24 +1,11 @@
-package br.com.miguel.agendatelefonica.network
+package br.com.miguel.lucasnavarro.contato.network
 
-import br.com.miguel.agendatelefonica.module.Contato
-import br.com.miguel.agendatelefonica.module.Data
-import br.com.miguel.agendatelefonica.module.Usuario
+import br.com.miguel.lucasnavarro.contato.module.Contato
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.*
 
-interface AgendaAPI {
-
-    @POST("auth/sign_in")
-    fun entrar(@Body usuario: Usuario): Observable<Response<Data>>
-
-    @POST("/auth")
-    fun criarUsuario(@Body usuario: Usuario): Observable<Data>
-
-    @DELETE("auth/sign_out")
-    fun sair(@Header("uid") uid: String,
-             @Header("client") client: String,
-             @Header("accessToken") accessToken: String): Observable<Data>
+interface ContatoAPI {
 
     @POST("/contacts")
     fun criarContato(@Header("uid") uid: String?,
@@ -41,6 +28,6 @@ interface AgendaAPI {
     fun editarContato(@Header("uid") uid: String?,
                       @Header("client") client: String?,
                       @Header("access-token") accessToken: String?,
-                      @Body contato: Contato,
+                      @Body contato: Contato?,
                       @Path("id") id: String?): Observable<Contato>
 }

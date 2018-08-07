@@ -1,9 +1,8 @@
-package br.com.miguel.agendatelefonica.module
+package br.com.miguel.lucasnavarro.contato.module
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.io.Serializable
-import java.util.*
 
 open class Contato : RealmObject(), Serializable {
 

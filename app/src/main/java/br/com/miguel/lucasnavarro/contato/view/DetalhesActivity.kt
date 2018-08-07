@@ -1,11 +1,11 @@
-package br.com.miguel.agendatelefonica.view
+package br.com.miguel.lucasnavarro.contato.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import br.com.miguel.agendatelefonica.R
-import br.com.miguel.agendatelefonica.database.AgendaDatabase
-import br.com.miguel.agendatelefonica.view.ContatosActivity.Companion.ID_CONTATO
+import br.com.miguel.lucasnavarro.R
+import br.com.miguel.lucasnavarro.contato.database.ContatoDatabase
+import br.com.miguel.lucasnavarro.contato.view.ContatosActivity.Companion.ID_CONTATO
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes.*
 
@@ -15,11 +15,11 @@ class DetalhesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes)
 
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val id: Int = intent.extras.getInt(ID_CONTATO)
 
-        val contato = AgendaDatabase.getContato(id)
+        val contato = ContatoDatabase.getContato(id)
 
         contato?.let { contato ->
             txtDetalheNome.text = contato.name

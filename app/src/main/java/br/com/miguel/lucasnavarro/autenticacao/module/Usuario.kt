@@ -1,4 +1,4 @@
-package br.com.miguel.agendatelefonica.module
+package br.com.miguel.lucasnavarro.autenticacao.module
 
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmObject
@@ -20,8 +20,8 @@ open class Usuario : RealmObject(), Serializable {
     @SerializedName("password_confirmation")
     var password_confirmation: String? = ""
 
-    var provider: String? = null
-    var uid: String? = null
+    var provider: String? = ""
+    var uid: String? = ""
     var allow_password_change: Boolean? = false
     var name: String? = ""
     var nickname: String? = ""

@@ -1,4 +1,4 @@
-package br.com.miguel.agendatelefonica
+package br.com.miguel.lucasnavarro
 
 import org.junit.Test
 

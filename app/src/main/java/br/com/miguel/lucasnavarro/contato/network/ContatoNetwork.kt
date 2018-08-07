@@ -1,18 +1,17 @@
-package br.com.miguel.agendatelefonica.network
+package br.com.miguel.lucasnavarro.contato.network
 
-import android.util.Log
-import br.com.miguel.agendatelefonica.module.Contato
-import br.com.miguel.agendatelefonica.module.Usuario
+import br.com.miguel.lucasnavarro.contato.module.Contato
+import br.com.miguel.lucasnavarro.autenticacao.module.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object AgendaNetwork {
+object ContatoNetwork {
 
     val agendaAPI by lazy {
-        getRetrofit().create(AgendaAPI::class.java)
+        getRetrofit().create(ContatoAPI::class.java)
     }
 
     private fun getRetrofit(): Retrofit {
@@ -22,44 +21,6 @@ object AgendaNetwork {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-    }
-
-    fun entrar(usuario: Usuario, onSucess: (usuario: Usuario) -> Unit, onError: () -> Unit) {
-
-        agendaAPI.entrar(usuario)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response ->
-
-                    val user = response.body()?.data
-
-                    user?.let {
-
-                        it.accessToken = response.headers()["access-token"]
-                        it.uid = response.headers()["uid"]
-                        it.client = response.headers()["client"]
-                        onSucess(it)
-                    }
-                }, {
-                    onError()
-                    Log.d("erroLogin", it.message.toString())
-                })
-    }
-
-    fun criarUsuario(usuario: Usuario, onSucess: (usuario: Usuario) -> Unit, onError: () -> Unit) {
-
-        agendaAPI.criarUsuario(usuario)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response ->
-
-                    val usuario = response.data
-
-                    usuario?.let { onSucess(it) }
-                }, {
-                    onError()
-                    Log.d("erroCriarConta", it.message.toString())
-                })
     }
 
     fun criarContato(usuario: Usuario, contato: Contato, onSuccess: (contato: Contato) -> Unit, onError: (msg: String) -> Unit) {
@@ -107,39 +68,13 @@ object AgendaNetwork {
                 })
     }
 
-    fun editarContato(usuario: Usuario, contato: Contato, id: Int,onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
+    fun editarContato(usuario: Usuario, contato: Contato?, id: Int?, onSuccess: (contato: Contato) -> Unit, onError: () -> Unit) {
 
         agendaAPI.editarContato(usuario.uid, usuario.client, usuario.accessToken, contato, id.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     onSuccess(it)
-                }, {
-                    onError()
-                })
-    }
-
-    fun sair(usuario: Usuario, onSuccess: () -> Unit, onError: () -> Unit) {
-
-        var uid: String = ""
-        var accessToken: String = ""
-        var client: String = ""
-
-        usuario.uid?.let {
-            uid = it
-        }
-        usuario.accessToken?.let {
-            accessToken = it
-        }
-        usuario.client?.let {
-            client = it
-        }
-
-        agendaAPI.sair(uid, client, accessToken)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    onSuccess()
                 }, {
                     onError()
                 })

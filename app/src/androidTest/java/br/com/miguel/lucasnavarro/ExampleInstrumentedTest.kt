@@ -1,4 +1,4 @@
-package br.com.miguel.agendatelefonica
+package br.com.miguel.lucasnavarro
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

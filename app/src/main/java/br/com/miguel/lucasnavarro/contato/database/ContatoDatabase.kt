@@ -1,29 +1,9 @@
-package br.com.miguel.agendatelefonica.database
+package br.com.miguel.lucasnavarro.contato.database
 
-import br.com.miguel.agendatelefonica.module.Contato
-import br.com.miguel.agendatelefonica.module.Usuario
+import br.com.miguel.lucasnavarro.contato.module.Contato
 import io.realm.Realm
 
-object AgendaDatabase {
-
-    fun salvarUsuario(usuario: Usuario, onSuccess: () -> Unit) {
-
-        Realm.getDefaultInstance().use { realm ->
-            realm.beginTransaction()
-            realm.copyToRealm(usuario)
-            realm.commitTransaction()
-            onSuccess()
-        }
-    }
-
-    fun limparBanco() {
-
-        Realm.getDefaultInstance().use { realm ->
-            realm.beginTransaction()
-            realm.deleteAll()
-            realm.commitTransaction()
-        }
-    }
+object ContatoDatabase {
 
     fun apagarContatos() {
 
@@ -62,17 +42,6 @@ object AgendaDatabase {
             realm.copyToRealm(contatos)
             realm.commitTransaction()
             onSuccess()
-        }
-    }
-
-    fun getUsuario(id: Int): Usuario? {
-
-        Realm.getDefaultInstance().use { realm ->
-            realm.beginTransaction()
-            val usuario: Usuario? = realm.where(Usuario::class.java).equalTo("id", id).findFirst()
-            realm.commitTransaction()
-
-            return realm.copyFromRealm(usuario)
         }
     }
 

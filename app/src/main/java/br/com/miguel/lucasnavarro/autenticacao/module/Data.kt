@@ -1,4 +1,4 @@
-package br.com.miguel.agendatelefonica.module
+package br.com.miguel.lucasnavarro.autenticacao.module
 
 import java.io.Serializable
 
