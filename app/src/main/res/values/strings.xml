@@ -9,8 +9,9 @@
     <string name="erro_editar_contato">erro ao editar contato</string>
     <string name="erro_apagar_contato">erro ao apagar contato</string>
     <string name="erro_listar_contatos">erro ao listar contatos</string>
-    <string name="contato_salvo_com_sucesso">contato salvo com sucesso!</string>
+    <string name="sucesso_salvar_contato">contato salvo com sucesso!</string>
     <string name="preencha_campos">preencha todos os campos</string>
     <string name="erro_sair">erro ao sair</string>
+    <string name="succeso_editar_contato">Usuario editado com sucesso</string>
 
 </resources>
