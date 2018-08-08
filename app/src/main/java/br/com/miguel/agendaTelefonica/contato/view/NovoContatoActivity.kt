@@ -75,7 +75,7 @@ class NovoContatoActivity : AppCompatActivity() {
         birth = if (editAniversarioContato.text.toString().isBlank()) {
             0
         } else {
-            editAniversarioContato.text.toString().toInt()
+            editAniversarioContato.text.toString().toLong()
         }
 
         phone = editNumeroContato.text.toString()

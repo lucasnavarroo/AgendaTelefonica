@@ -10,7 +10,7 @@ open class Contato : RealmObject(), Serializable {
     var id: Int? = 0
 
     var name: String? = ""
-    var birth: Int? = 0
+    var birth: Long? = 0
     var email: String? = ""
     var phone: String? = ""
     var picture: String? = ""

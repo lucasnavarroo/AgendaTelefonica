@@ -9,6 +9,8 @@ import br.com.miguel.agendaTelefonica.contato.module.Contato
 import br.com.miguel.agendaTelefonica.contato.view.ContatosActivity.Companion.ID_CONTATO
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetalhesActivity : AppCompatActivity() {
 
@@ -26,16 +28,21 @@ class DetalhesActivity : AppCompatActivity() {
     }
 
     private fun preencherDadosContato(contato: Contato?) {
+
         contato?.let { contato ->
             txtDetalheNome.text = contato.name
             txtDetalheEmail.text = contato.email
             txtDetalheNumero.text = contato.phone
-            txtDetalheBirth.text = contato.birth.toString()
+
+            val birth = getDate(contato.birth)
+            txtDetalheBirth.text = birth
+
             Picasso.get().load(contato.picture.toString()).placeholder(R.drawable.ic_person_black_24dp).fit().into(imgDetalheContato)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.getItemId()) {
             android.R.id.home -> {
                 onBackPressed()
@@ -43,5 +50,13 @@ class DetalhesActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getDate(timestamp: Long?): String {
+
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val data = Date(timestamp.toString().toLong())
+
+        return dateFormat.format(data)
     }
 }
