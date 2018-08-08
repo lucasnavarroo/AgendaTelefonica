@@ -48,9 +48,7 @@ object ContatoDatabase {
     fun getContato(id: Int): Contato? {
 
         Realm.getDefaultInstance().use { realm ->
-            realm.beginTransaction()
-            val contato: Contato? = realm.where(Contato::class.java).equalTo("id", id).findFirst()
-            realm.commitTransaction()
+            val contato = realm.where(Contato::class.java).equalTo("id", id).findFirst()
 
             return realm.copyFromRealm(contato)
         }
@@ -69,9 +67,7 @@ object ContatoDatabase {
     fun getContatos(): List<Contato> {
 
         Realm.getDefaultInstance().use { realm ->
-            realm.beginTransaction()
-            val contatos: List<Contato>? = realm.where(Contato::class.java).findAll()
-            realm.commitTransaction()
+            val contatos = realm.where(Contato::class.java).findAll()
 
             return realm.copyFromRealm(contatos)
         }

@@ -8,7 +8,7 @@ import br.com.miguel.agendaTelefonica.contato.network.ContatoNetwork
 
 object ContatoBusiness {
 
-    fun listarContatos(onSuccess: () -> Unit, onError: (msg: String) -> Unit) {
+    fun listarContatos(onSuccess: () -> Unit, onError: (msg: Int) -> Unit) {
 
         val usuario = AutenticacaoDatabase.getUsuario()
 
@@ -20,12 +20,12 @@ object ContatoBusiness {
                     onSuccess()
                 }
             }, {
-                onError("erro ao listar contatos")
+                onError(R.string.erro_listar_contatos)
             })
         }
     }
 
-    fun apagarContato(id: Int, onSuccess: () -> Unit, onError: (msg: String) -> Unit) {
+    fun apagarContato(id: Int, onSuccess: () -> Unit, onError: (msg: Int) -> Unit) {
 
         val usuario = AutenticacaoDatabase.getUsuario()
 
@@ -35,12 +35,12 @@ object ContatoBusiness {
                 ContatoDatabase.apagarContato(id)
                 onSuccess()
             }, {
-                onError("erro ao apagar contato")
+                onError(R.string.erro_apagar_contato)
             })
         }
     }
 
-    fun criarContato(contato: Contato, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+    fun criarContato(contato: Contato, onSuccess: () -> Unit, onError: (msg: Int) -> Unit) {
 
         val usuario = AutenticacaoDatabase.getUsuario()
 
@@ -52,12 +52,12 @@ object ContatoBusiness {
                     }
                 }
             }, {
-                onError(R.string.erro_criar_contato)
+                onError(R.string.erro_salvar_contato)
             })
         }
     }
 
-    fun editarContato(id: Int?, contato: Contato?, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+    fun editarContato(id: Int?, contato: Contato, onSuccess: () -> Unit, onError: (msg: Int) -> Unit) {
 
         val usuario = AutenticacaoDatabase.getUsuario()
 
@@ -73,7 +73,15 @@ object ContatoBusiness {
         }
     }
 
-//    fun isInputPreenchido(): Boolean {
-//        return
-//    }
+    fun isInputPreenchido(contato: Contato): Boolean {
+
+        return !contato.name.isNullOrBlank() &&
+                !contato.email.isNullOrBlank() &&
+                !contato.phone.isNullOrBlank() &&
+                !contato.picture.isNullOrBlank() &&
+                contato.birth!! > 0
+    }
 }
+
+
+

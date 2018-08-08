@@ -5,11 +5,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.com.miguel.agendaTelefonica.R
 import br.com.miguel.agendaTelefonica.contato.database.ContatoDatabase
+import br.com.miguel.agendaTelefonica.contato.module.Contato
 import br.com.miguel.agendaTelefonica.contato.view.ContatosActivity.Companion.ID_CONTATO
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DetalhesActivity : AppCompatActivity() {
 
@@ -23,6 +22,10 @@ class DetalhesActivity : AppCompatActivity() {
 
         val contato = ContatoDatabase.getContato(id)
 
+        preencherDadosContato(contato)
+    }
+
+    private fun preencherDadosContato(contato: Contato?) {
         contato?.let { contato ->
             txtDetalheNome.text = contato.name
             txtDetalheEmail.text = contato.email

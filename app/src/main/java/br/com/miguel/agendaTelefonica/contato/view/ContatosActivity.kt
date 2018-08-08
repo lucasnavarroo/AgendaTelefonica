@@ -18,6 +18,7 @@ class ContatosActivity : AppCompatActivity() {
 
     companion object {
         val ID_CONTATO: String? = "ID_CONTATO"
+        val IS_EDIT: String = "IS_EDIT"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +44,7 @@ class ContatosActivity : AppCompatActivity() {
 
         swipeRefresh.isRefreshing = true
         ContatoBusiness.listarContatos({
-            listaContatos.layoutManager = LinearLayoutManager(this)
-            listaContatos.adapter = ContatoAdapter(ContatoDatabase.getContatos(), this)
+            setupRecyclerView()
             swipeRefresh.isRefreshing = false
         }, {
             Snackbar.make(listaContatos, R.string.erro_listar_contatos, Snackbar.LENGTH_SHORT).show()
@@ -52,9 +52,16 @@ class ContatosActivity : AppCompatActivity() {
         })
     }
 
+    private fun setupRecyclerView() {
+        listaContatos.layoutManager = LinearLayoutManager(this)
+        listaContatos.adapter = ContatoAdapter(ContatoDatabase.getContatos(), this)
+    }
+
     private fun onAddClick() {
         btnNovoContato.setOnClickListener {
-            startActivity(Intent(this, AddContatoActivity::class.java))
+            val intent = Intent(this, NovoContatoActivity::class.java)
+            intent.putExtra(IS_EDIT, false)
+            startActivity(intent)
         }
     }
 
