@@ -5,6 +5,7 @@ import br.com.miguel.agendaTelefonica.autenticacao.database.AutenticacaoDatabase
 import br.com.miguel.agendaTelefonica.autenticacao.module.Usuario
 import br.com.miguel.agendaTelefonica.autenticacao.network.AutenticacaoNetwork
 import br.com.miguel.agendaTelefonica.contato.database.ContatoDatabase
+import java.io.IOException
 
 object AutenticacaoBusiness {
 
@@ -35,7 +36,7 @@ object AutenticacaoBusiness {
         }
     }
 
-    fun criarUsuario(usuario: Usuario, onSuccess: () -> Unit, onError: (message: Int) -> Unit) {
+    fun criarUsuario(usuario: Usuario, onSuccess: () -> Unit, onError: (message: String?) -> Unit) {
 
         AutenticacaoNetwork.criarUsuario(usuario, {
             usuario.let {
@@ -44,9 +45,27 @@ object AutenticacaoBusiness {
                 }
             }
         }, {
-            onError(R.string.erro_criar_conta)
+            onError(it)
         })
     }
 
     fun isInputPreenchido(usuario: Usuario) = !usuario.email.isNullOrBlank() && !usuario.password.isNullOrBlank()
+
+    fun checkInternet(): Boolean {
+
+        val runtime = Runtime.getRuntime()
+        try {
+            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
+            val exitValue = ipProcess.waitFor()
+            return exitValue == 0
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+
+        return false
+    }
 }

@@ -14,5 +14,7 @@
     <string name="erro_sair">erro ao sair</string>
     <string name="succeso_editar_contato">Usuario editado com sucesso</string>
     <string name="sucesso_apagar_contato">contato apagado com sucesso</string>
+    <string name="verifique_conexao">verifique sua conexão com a internet</string>
+    <string name="alterar">alterar</string>
 
 </resources>

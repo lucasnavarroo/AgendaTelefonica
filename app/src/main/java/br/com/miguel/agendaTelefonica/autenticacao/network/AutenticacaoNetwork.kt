@@ -44,7 +44,7 @@ object AutenticacaoNetwork {
                 })
     }
 
-    fun criarUsuario(usuario: Usuario, onSucess: (usuario: Usuario) -> Unit, onError: () -> Unit) {
+    fun criarUsuario(usuario: Usuario, onSucess: (usuario: Usuario) -> Unit, onError: (msg: String?) -> Unit) {
 
         autenticacaoAPI.criarUsuario(usuario)
                 .subscribeOn(Schedulers.io())
@@ -55,7 +55,7 @@ object AutenticacaoNetwork {
 
                     usuario?.let { onSucess(it) }
                 }, {
-                    onError()
+                    onError(it.message)
                 })
     }
 

@@ -1,11 +1,11 @@
 package br.com.miguel.agendaTelefonica.contato.view
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.MenuItem
 import android.widget.Toast
 import br.com.miguel.agendaTelefonica.R
+import br.com.miguel.agendaTelefonica.autenticacao.view.Application
 import br.com.miguel.agendaTelefonica.contato.business.ContatoBusiness
 import br.com.miguel.agendaTelefonica.contato.database.ContatoDatabase
 import br.com.miguel.agendaTelefonica.contato.module.Contato
@@ -13,7 +13,7 @@ import br.com.miguel.agendaTelefonica.contato.view.ContatosActivity.Companion.ID
 import br.com.miguel.agendaTelefonica.contato.view.ContatosActivity.Companion.IS_EDIT
 import kotlinx.android.synthetic.main.activity_novo_contato.*
 
-class NovoContatoActivity : AppCompatActivity() {
+class NovoContatoActivity : Application() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,25 +24,38 @@ class NovoContatoActivity : AppCompatActivity() {
         val isEdit = intent.extras.getBoolean(IS_EDIT)
 
         if (isEdit) {
+
+            btnNovoContato.setText(R.string.alterar)
             val id: Int = intent.extras.getInt(ID_CONTATO)
             getContatoById(id)?.let { onEditClick(it) }
+
         } else onAddClick()
     }
 
     private fun onAddClick() {
 
         btnNovoContato.setOnClickListener {
+
             val contato = Contato().apply { preencherContato() }
 
-            if (ContatoBusiness.isInputPreenchido((contato))) {
-                ContatoBusiness.criarContato(contato, {
-                    Toast.makeText(this, R.string.sucesso_salvar_contato, Toast.LENGTH_SHORT).show()
-                    finish()
-                }, {
-                    Toast.makeText(this, R.string.erro_salvar_contato, Toast.LENGTH_SHORT).show()
-                })
+            if (!ContatoBusiness.checkInternet()) {
+
+                Snackbar.make(btnNovoContato, R.string.verifique_conexao, Snackbar.LENGTH_SHORT).show()
+
+            } else if (!ContatoBusiness.isInputPreenchido(contato)) {
+
+                Snackbar.make(btnNovoContato, R.string.preencha_campos, Snackbar.LENGTH_SHORT).show()
+
             } else {
-                Snackbar.make(btnNovoContato, R.string.preencha_campos, Toast.LENGTH_SHORT).show()
+
+                if (ContatoBusiness.isInputPreenchido((contato))) {
+                    ContatoBusiness.criarContato(contato, {
+                        Toast.makeText(this, R.string.sucesso_salvar_contato, Toast.LENGTH_SHORT).show()
+                        finish()
+                    }, {
+                        Toast.makeText(this, R.string.erro_salvar_contato, Toast.LENGTH_SHORT).show()
+                    })
+                } else Snackbar.make(btnNovoContato, R.string.preencha_campos, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -60,9 +73,7 @@ class NovoContatoActivity : AppCompatActivity() {
                 }, { mensagemErro ->
                     Toast.makeText(this, mensagemErro, Toast.LENGTH_SHORT).show()
                 })
-            } else {
-                Snackbar.make(btnNovoContato, R.string.preencha_campos, Toast.LENGTH_SHORT).show()
-            }
+            } else Snackbar.make(btnNovoContato, R.string.preencha_campos, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -70,24 +81,22 @@ class NovoContatoActivity : AppCompatActivity() {
 
         name = editNomeContato.text.toString()
         email = editEmailContato.text.toString()
-        picture = editUrlImagemContato.toString()
+        picture = editUrlImagemContato.text.toString()
 
         birth = if (editAniversarioContato.text.toString().isBlank()) {
             0
-        } else {
-            editAniversarioContato.text.toString().toLong()
-        }
+        } else editAniversarioContato.text.toString().toLong()
 
         phone = editNumeroContato.text.toString()
     }
 
     private fun getContatoById(id: Int): Contato? {
-
         val contato = ContatoDatabase.getContato(id)
         return contato?.apply { preencherTelaInput(contato) }
     }
 
     private fun preencherTelaInput(contato: Contato) {
+
         editNomeContato.setText(contato.name)
         editEmailContato.setText(contato.email)
         editUrlImagemContato.setText(contato.picture)
@@ -96,6 +105,7 @@ class NovoContatoActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()

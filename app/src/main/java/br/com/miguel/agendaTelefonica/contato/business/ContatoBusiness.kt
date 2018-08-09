@@ -5,6 +5,7 @@ import br.com.miguel.agendaTelefonica.autenticacao.database.AutenticacaoDatabase
 import br.com.miguel.agendaTelefonica.contato.database.ContatoDatabase
 import br.com.miguel.agendaTelefonica.contato.module.Contato
 import br.com.miguel.agendaTelefonica.contato.network.ContatoNetwork
+import java.io.IOException
 
 object ContatoBusiness {
 
@@ -73,13 +74,31 @@ object ContatoBusiness {
         }
     }
 
-    fun isInputPreenchido(contato: Contato): Boolean {
+    fun isInputPreenchido(contato: Contato?): Boolean {
 
-        return !contato.name.isNullOrBlank() &&
-                !contato.email.isNullOrBlank() &&
-                !contato.phone.isNullOrBlank() &&
-                !contato.picture.isNullOrBlank() &&
-                contato.birth!! > 0
+        return !contato?.name.isNullOrBlank() &&
+                !contato?.email.isNullOrBlank() &&
+                !contato?.phone.isNullOrBlank() &&
+                !contato?.picture.isNullOrBlank() &&
+                contato?.birth!! > 0
+    }
+
+    fun checkInternet(): Boolean {
+
+        val runtime = Runtime.getRuntime()
+        try {
+            val ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8")
+            val exitValue = ipProcess.waitFor()
+            return exitValue == 0
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+
+        return false
     }
 }
 

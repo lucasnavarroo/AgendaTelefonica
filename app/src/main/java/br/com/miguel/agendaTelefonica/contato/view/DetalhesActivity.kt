@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.com.miguel.agendaTelefonica.R
+import br.com.miguel.agendaTelefonica.autenticacao.view.Application
 import br.com.miguel.agendaTelefonica.contato.database.ContatoDatabase
 import br.com.miguel.agendaTelefonica.contato.module.Contato
 import br.com.miguel.agendaTelefonica.contato.view.ContatosActivity.Companion.ID_CONTATO
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_detalhes.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DetalhesActivity : AppCompatActivity() {
+class DetalhesActivity : Application() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

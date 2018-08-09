@@ -1,25 +1,21 @@
 package br.com.miguel.agendaTelefonica.autenticacao.view
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.util.Log
 import br.com.miguel.agendaTelefonica.R
 import br.com.miguel.agendaTelefonica.autenticacao.business.AutenticacaoBusiness
 import br.com.miguel.agendaTelefonica.autenticacao.database.AutenticacaoDatabase
 import br.com.miguel.agendaTelefonica.autenticacao.module.Usuario
 import br.com.miguel.agendaTelefonica.contato.view.ContatosActivity
-import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : Application() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        Realm.init(this)
 
         val usuario = AutenticacaoDatabase.getUsuario()
 
@@ -27,13 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         cliqueEntrar()
 
-        criarConta()
-    }
-
-    private fun isLogado(usuario: Usuario?) {
-        usuario?.let {
-            telaInicial()
-        }
+        cliqueCriarConta()
     }
 
     override fun onResume() {
@@ -43,17 +33,26 @@ class LoginActivity : AppCompatActivity() {
         txtEmail.text = null
     }
 
-    fun cliqueEntrar() {
+    private fun isLogado(usuario: Usuario?) {
+        usuario?.let {
+            telaInicial()
+        }
+    }
 
+    fun cliqueEntrar() {
         btnEntrar.setOnClickListener {
 
             val usuario = criarUsuario()
 
-            if (AutenticacaoBusiness.isInputPreenchido(usuario)) {
-                entrar(usuario)
-            } else {
-                Snackbar.make(btnEntrar, R.string.preencha_campos, Snackbar.LENGTH_SHORT).show()
-            }
+            if (!AutenticacaoBusiness.checkInternet()) {
+
+                Snackbar.make(btnCriarConta, R.string.verifique_conexao, Snackbar.LENGTH_SHORT).show()
+
+            } else if (!AutenticacaoBusiness.isInputPreenchido(usuario)) {
+
+                Snackbar.make(btnCriarConta, R.string.preencha_campos, Snackbar.LENGTH_SHORT).show()
+
+            } else entrar(usuario)
         }
     }
 
@@ -67,18 +66,32 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    fun criarConta() {
+    private fun cliqueCriarConta() {
 
         btnCriarConta.setOnClickListener {
             val usuario = criarUsuario()
 
-            AutenticacaoBusiness.criarUsuario(usuario, {
-                Snackbar.make(btnCriarConta, R.string.conta_criada, Snackbar.LENGTH_SHORT).show()
-                AutenticacaoDatabase.limparBanco()
-            }, { msgErroCriarConta ->
-                Snackbar.make(btnCriarConta, msgErroCriarConta, Snackbar.LENGTH_SHORT).show()
-            })
+            if (!AutenticacaoBusiness.checkInternet()) {
+
+                Snackbar.make(btnCriarConta, R.string.verifique_conexao, Snackbar.LENGTH_SHORT).show()
+
+            } else if (!AutenticacaoBusiness.isInputPreenchido(usuario)) {
+
+                Snackbar.make(btnCriarConta, R.string.preencha_campos, Snackbar.LENGTH_SHORT).show()
+
+            } else criarConta(usuario)
         }
+    }
+
+    fun criarConta(usuario: Usuario) {
+
+        AutenticacaoBusiness.criarUsuario(usuario, {
+            Snackbar.make(btnCriarConta, R.string.conta_criada, Snackbar.LENGTH_SHORT).show()
+            AutenticacaoDatabase.limparBanco()
+        }, { msgErroCriarConta ->
+            Snackbar.make(btnCriarConta, R.string.erro_criar_conta, Snackbar.LENGTH_SHORT).show()
+            Log.d("erroCriarConta", msgErroCriarConta)
+        })
     }
 
     private fun criarUsuario(): Usuario {

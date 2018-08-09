@@ -4,11 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupMenu
-import android.widget.Toast
 import br.com.miguel.agendaTelefonica.R
 import br.com.miguel.agendaTelefonica.contato.business.ContatoBusiness
 import br.com.miguel.agendaTelefonica.contato.database.ContatoDatabase
@@ -59,7 +56,7 @@ class ContatoAdapter(var contatos: List<Contato>, val context: Context) : Recycl
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.apagarContato -> apagarContato(id, holder.itemView)
-                    R.id.editarContato -> editarContato(id, holder.itemView)
+                    R.id.editarContato -> editarContato(id)
                     else -> false
                 }
             }
@@ -68,9 +65,10 @@ class ContatoAdapter(var contatos: List<Contato>, val context: Context) : Recycl
         }
     }
 
-    private fun editarContato(id: Int?, view: View?): Boolean {
+    private fun editarContato(id: Int?): Boolean {
 
         if (id != null) {
+
             val intent = Intent(context, NovoContatoActivity::class.java)
             intent.putExtra(ID_CONTATO, id)
             intent.putExtra(IS_EDIT, true)
@@ -81,12 +79,17 @@ class ContatoAdapter(var contatos: List<Contato>, val context: Context) : Recycl
 
     private fun apagarContato(id: Int?, view: View): Boolean {
 
+        if (!ContatoBusiness.checkInternet()) {
+            Snackbar.make(view, R.string.verifique_conexao, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+
         id?.let {
             ContatoBusiness.apagarContato(id, {
                 refreshContatos()
-                Snackbar.make(view,R.string.sucesso_apagar_contato,Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, R.string.sucesso_apagar_contato, Snackbar.LENGTH_SHORT).show()
             }, {
-                Snackbar.make(view,R.string.erro_apagar_contato,Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, R.string.erro_apagar_contato, Snackbar.LENGTH_SHORT).show()
             })
         }
         return true
