@@ -7,58 +7,72 @@
     tools:context="br.com.miguel.agendaTelefonica.autenticacao.view.LoginActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:ems="10"
-        android:hint="email"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/txtSenha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="senha"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnEntrar"
-        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
-        app:layout_constraintStart_toStartOf="@+id/txtEmail"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnEntrar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"
-        android:text="Entrar"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@+id/btnCriarConta"
-        app:layout_constraintEnd_toEndOf="@+id/txtSenha"
-        app:layout_constraintStart_toStartOf="@+id/txtSenha"
-        app:layout_constraintTop_toBottomOf="@+id/txtSenha" />
+            <EditText
+                android:id="@+id/txtSenha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ems="10"
+                android:hint="senha"
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toTopOf="@+id/btnEntrar"
+                app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+                app:layout_constraintStart_toStartOf="@+id/txtEmail"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
-    <Button
-        android:id="@+id/btnCriarConta"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:text="criar conta"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnEntrar"
-        app:layout_constraintStart_toStartOf="@+id/btnEntrar"
-        app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
+            <Button
+                android:id="@+id/btnEntrar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/colorAccent"
+                android:text="Entrar"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toTopOf="@+id/btnCriarConta"
+                app:layout_constraintEnd_toEndOf="@+id/txtSenha"
+                app:layout_constraintStart_toStartOf="@+id/txtSenha"
+                app:layout_constraintTop_toBottomOf="@+id/txtSenha" />
+
+            <Button
+                android:id="@+id/btnCriarConta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="criar conta"
+                android:textColor="@android:color/background_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnEntrar"
+                app:layout_constraintStart_toStartOf="@+id/btnEntrar"
+                app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:ems="10"
+                android:hint="email"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
